@@ -36,16 +36,6 @@ public class UserServiceImplTest {
         userService = new UserServiceImpl(userRepository, customEncoderService);
     }
 
-    @Test
-    void testCreateUser() {
-        // Arrange
-        String firstname = "John";
-        String lastname = "Doe";
-        String email = "john.doe@example.com";
-        String password = "password";
-
-        User newUser = new User(firstname, lastname, email, password);
-    }
 
     @Test
     void testGetUserByEmail() {

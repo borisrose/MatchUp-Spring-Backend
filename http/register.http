@@ -1,0 +1,12 @@
+@host=localhost
+@port=8095
+@url=http://{{host}}:{{port}}/api/auth/register
+
+
+POST {{url}}
+Content-Type: application/json
+
+{
+    email: "boris@gmail.com",
+    password: "caroline"
+}

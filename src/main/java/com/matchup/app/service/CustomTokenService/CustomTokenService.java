@@ -11,12 +11,15 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+import com.matchup.app.service.CustomEncoderService.CustomEncoderService;
+
 @Service
 public class CustomTokenService {
-    private JwtEncoder jwtEncoder;
+    
+	private final CustomEncoderService customEncoderService;
 
-	public CustomTokenService(JwtEncoder jwtEncoder) {
-		this.jwtEncoder = jwtEncoder;
+	public CustomTokenService(CustomEncoderService customEncoderService) {
+		this.customEncoderService = customEncoderService;
 	}
 
 	public String generateToken(Authentication authentication) {
@@ -28,7 +31,7 @@ public class CustomTokenService {
 			.subject(authentication.getName())
 			.build();
 		JwtEncoderParameters jwtEncoderParameters = JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).build(), claims);
-		return this.jwtEncoder.encode(jwtEncoderParameters).getTokenValue();
+		return this.customEncoderService.jwtEncoder().encode(jwtEncoderParameters).getTokenValue();
 	}
 
 	public String generateRegisteringToken(String email){
@@ -41,6 +44,6 @@ public class CustomTokenService {
 				.build();
 
 		JwtEncoderParameters jwtEncoderParameters = JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).build(), claims);
-		return this.jwtEncoder.encode(jwtEncoderParameters).getTokenValue();
+		return this.customEncoderService.jwtEncoder().encode(jwtEncoderParameters).getTokenValue();
 	}
 }
