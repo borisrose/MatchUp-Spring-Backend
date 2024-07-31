@@ -1,12 +1,29 @@
 @host=localhost
 @port=8095
-@url=http://{{host}}:{{port}}/api/auth/register
+@url=http://{{host}}:{{port}}/api/auth
 
 
-POST {{url}}
+POST {{url}}/register
 Content-Type: application/json
 
 {
-    email: "boris@gmail.com",
-    password: "caroline"
+    "firstname":"boris",
+    "lastname": "rose",
+    "email": "boris@gmail.com",
+    "password": "caroline"
 }
+
+###
+# @name Login
+POST {{url}}/login
+Content-Type: application/json
+
+{
+    "email": "boris@gmail.com",
+    "password": "caroline"
+}
+
+
+###
+GET {{ url }}/me 
+Authorization: Bearer {{Login.response.body.token}}
